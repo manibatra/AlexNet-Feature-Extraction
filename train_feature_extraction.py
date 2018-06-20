@@ -38,8 +38,8 @@ fc7 = tf.stop_gradient(fc7)
 shape = (fc7.get_shape().as_list()[-1], nb_classes)
 w1 = tf.Variable(tf.truncated_normal(shape, 0, 0.1))
 b1 = tf.Variable(tf.zeros([nb_classes]))
-fc = tf.nn.xw_plus_b(fc7, w1, b1)
-probs = tf.nn.softmax(fc)
+probs = tf.nn.xw_plus_b(fc7, w1, b1)
+
 
 # TODO: Define loss, training, accuracy operations.
 rate = 0.001
