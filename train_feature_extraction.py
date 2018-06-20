@@ -22,8 +22,9 @@ batch_size = 128
 (X_train, y_train), (X_test, y_test) = cifar10.load_data()
 # TODO: Split data into training and validation sets.
 
+y_train = y_train.reshape(-1)
+y_test = y_test.reshape(-1)
 X_train, X_valid, y_train, y_valid = train_test_split(X_train, y_train, test_size=0.33, random_state=42, stratify=y_train)
-
 
 # TODO: Define placeholders and resize operation.
 x = tf.placeholder(tf.float32, (None, 32, 32, 3))
