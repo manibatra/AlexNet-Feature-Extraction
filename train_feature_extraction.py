@@ -3,23 +3,26 @@ import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 import time
+from keras.datasets import cifar10
+
 
 from alexnet import AlexNet
 
-nb_classes = 43
+nb_classes = 10
 epochs = 10
 batch_size = 128
 
 # TODO: Load traffic signs data.
-training_file = "train.p"
-with open(training_file, mode='rb') as f:
-	data = pickle.load(f)
+# training_file = "train.p"
+# with open(training_file, mode='rb') as f:
+# 	data = pickle.load(f)
 
-X_features, y_labels = data['features'], data['labels']
+# X_features, y_labels = data['features'], data['labels']
 
+(X_train, y_train), (X_test, y_test) = cifar10.load_data()
 # TODO: Split data into training and validation sets.
 
-X_train, X_valid, y_train, y_valid = train_test_split(X_features, y_labels, test_size=0.33, random_state=42)
+X_train, X_valid, y_train, y_valid = train_test_split(X_train, y_train, test_size=0.33, random_state=42, stratify=y_train)
 
 
 # TODO: Define placeholders and resize operation.
@@ -36,7 +39,7 @@ fc7 = tf.stop_gradient(fc7)
 
 # TODO: Add the final layer for traffic sign classification.
 shape = (fc7.get_shape().as_list()[-1], nb_classes)
-w1 = tf.Variable(tf.truncated_normal(shape, 0, 0.1))
+w1 = tf.Variable(tf.truncated_normal(shape, 0, stddev=0.01))
 b1 = tf.Variable(tf.zeros([nb_classes]))
 probs = tf.nn.xw_plus_b(fc7, w1, b1)
 
