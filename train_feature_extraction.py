@@ -59,7 +59,7 @@ def evaluate(X_data, y_data):
 	for offset in range(0, num_examples, batch_size):
 		end = offset + batch_size
 		batch_x, batch_y = X_data[offset:end], y_data[offset:end]
-		loss, accuracy = sess.run(accuracy_op, feed_dict = {x: batch_x,
+		loss, accuracy = sess.run([loss_op, accuracy_op], feed_dict = {x: batch_x,
 													  y: batch_y})
 		total_accuracy += (accuracy * len(batch_x))
 		total_loss += (loss * len(batch_x))
